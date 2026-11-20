@@ -9,7 +9,7 @@
         <field name="report_file">biblio_gestion.report_emprunt</field>
         <field name="binding_model_id" ref="model_biblio_emprunt"/>
         <field name="binding_type">report</field>
-        <field name="print_report_name">'Reçu d'emprunt - %s' % (object.reference)</field>
+        <field name="print_report_name">"Reçu d'emprunt"</field>
     </record>
 
     <template id="report_minimal_layout">
