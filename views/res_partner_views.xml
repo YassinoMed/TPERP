@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_partner_view_biblio" model="ir.ui.view">
+        <field name="name">res.partner.biblio.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[1]" position="inside">
+                <group string="Adhésion à la bibliothèque">
+                    <field name="est_membre"/>
+                    <field name="carte_membre" invisible="not est_membre"/>
+                    <field name="nb_emprunts" invisible="not est_membre"/>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Emprunts" name="emprunts">
+                    <field name="emprunt_ids" readonly="not est_membre">
+                        <list>
+                            <field name="reference"/>
+                            <field name="livre_id"/>
+                            <field name="date_debut"/>
+                            <field name="date_retour_prevue"/>
+                            <field name="date_retour"/>
+                            <field name="duree"/>
+                            <field name="state"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="biblio_livre_view_list" model="ir.ui.view">
+        <field name="name">biblio.livre.list</field>
+        <field name="model">biblio.livre</field>
+        <field name="arch" type="xml">
+            <list string="Livres">
+                <field name="name"/>
+                <field name="auteur_id"/>
+                <field name="isbn"/>
+                <field name="date_publication"/>
+                <field name="nb_pages"/>
+                <field name="etat"/>
+                <field name="disponible"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="biblio_livre_view_form" model="ir.ui.view">
+        <field name="name">biblio.livre.form</field>
+        <field name="model">biblio.livre</field>
+        <field name="arch" type="xml">
+            <form string="Livre">
+                <sheet>
+                    <field name="couverture" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Titre du livre"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="isbn"/>
+                            <field name="auteur_id"/>
+                            <field name="date_publication"/>
+                            <field name="nb_pages"/>
+                        </group>
+                        <group>
+                            <field name="etat"/>
+                            <field name="disponible"/>
+                            <field name="genre_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Résumé" name="resume">
+                            <field name="resume" placeholder="Résumé du livre..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblio_livre_view_search" model="ir.ui.view">
+        <field name="name">biblio.livre.search</field>
+        <field name="model">biblio.livre</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un livre">
+                <field name="name"/>
+                <field name="isbn"/>
+                <field name="auteur_id"/>
+                <filter string="Disponibles" name="disponibles" domain="[('disponible', '=', True)]"/>
+                <filter string="Empruntés" name="empruntes" domain="[('disponible', '=', False)]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="État physique" name="group_etat" context="{'group_by': 'etat'}"/>
+                    <filter string="Auteur" name="group_auteur" context="{'group_by': 'auteur_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="biblio_livre_action" model="ir.actions.act_window">
+        <field name="name">Livres</field>
+        <field name="res_model">biblio.livre</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Ajoutez votre premier livre</p>
+        </field>
+    </record>
+
+</odoo>

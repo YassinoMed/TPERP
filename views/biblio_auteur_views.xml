@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="biblio_auteur_view_list" model="ir.ui.view">
+        <field name="name">biblio.auteur.list</field>
+        <field name="model">biblio.auteur</field>
+        <field name="arch" type="xml">
+            <list string="Auteurs">
+                <field name="name"/>
+                <field name="date_naissance"/>
+                <field name="nb_livres"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="biblio_auteur_view_form" model="ir.ui.view">
+        <field name="name">biblio.auteur.form</field>
+        <field name="model">biblio.auteur</field>
+        <field name="arch" type="xml">
+            <form string="Auteur">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_livres" type="object"
+                                class="oe_stat_button" icon="fa-book">
+                            <field name="nb_livres" widget="statinfo" string="Livres"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Nom de l'auteur"/></h1>
+                    </div>
+                    <group>
+                        <field name="date_naissance"/>
+                        <field name="nb_livres"/>
+                    </group>
+                    <notebook>
+                        <page string="Biographie" name="biographie">
+                            <field name="biographie"/>
+                        </page>
+                        <page string="Livres" name="livres">
+                            <field name="livre_ids">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="isbn"/>
+                                    <field name="disponible"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblio_auteur_view_search" model="ir.ui.view">
+        <field name="name">biblio.auteur.search</field>
+        <field name="model">biblio.auteur</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un auteur">
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="biblio_auteur_action" model="ir.actions.act_window">
+        <field name="name">Auteurs</field>
+        <field name="res_model">biblio.auteur</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Ajoutez votre premier auteur</p>
+        </field>
+    </record>
+
+</odoo>

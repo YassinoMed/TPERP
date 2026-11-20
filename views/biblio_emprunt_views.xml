@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="biblio_emprunt_view_list" model="ir.ui.view">
+        <field name="name">biblio.emprunt.list</field>
+        <field name="model">biblio.emprunt</field>
+        <field name="arch" type="xml">
+            <list string="Emprunts"
+                  decoration-info="state == 'draft'"
+                  decoration-danger="state == 'cours'"
+                  decoration-warning="state == 'retard'"
+                  decoration-success="state == 'rendu'">
+                <field name="reference"/>
+                <field name="membre_id"/>
+                <field name="livre_id"/>
+                <field name="date_debut"/>
+                <field name="date_retour_prevue"/>
+                <field name="date_retour"/>
+                <field name="duree"/>
+                <field name="en_retard"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="biblio_emprunt_view_form" model="ir.ui.view">
+        <field name="name">biblio.emprunt.form</field>
+        <field name="model">biblio.emprunt</field>
+        <field name="arch" type="xml">
+            <form string="Emprunt">
+                <header>
+                    <button name="action_emprunter"
+                            string="Confirmer l'emprunt"
+                            type="object"
+                            class="btn-primary"
+                            invisible="state != 'draft'"/>
+                    <button name="action_retour"
+                            string="Enregistrer le retour"
+                            type="object"
+                            invisible="state not in ('cours', 'retard')"/>
+                    <button name="%(biblio_gestion.biblio_retour_wizard_action)d"
+                            string="Retour de livre"
+                            type="action"
+                            context="{'default_emprunt_id': id}"
+                            invisible="state not in ('cours', 'retard')"/>
+                    <button name="action_annuler"
+                            string="Annuler l'emprunt"
+                            type="object"
+                            invisible="state not in ('cours', 'retard')"/>
+                    <button name="%(biblio_gestion.action_report_emprunt)d"
+                            string="Imprimer le reçu"
+                            type="action"
+                            invisible="state == 'draft'"/>
+                    <field name="state"
+                           widget="statusbar"
+                           statusbar_visible="draft,cours,retard,rendu"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="reference" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="membre_id" readonly="state != 'draft'"/>
+                            <field name="livre_id" readonly="state != 'draft'"/>
+                            <field name="date_debut" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="date_retour_prevue" readonly="state != 'draft'"/>
+                            <field name="date_retour"/>
+                            <field name="duree"/>
+                            <field name="en_retard"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblio_emprunt_view_search" model="ir.ui.view">
+        <field name="name">biblio.emprunt.search</field>
+        <field name="model">biblio.emprunt</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un emprunt">
+                <field name="reference"/>
+                <field name="membre_id"/>
+                <field name="livre_id"/>
+                <filter string="Brouillons" name="draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="En cours" name="cours" domain="[('state', '=', 'cours')]"/>
+                <filter string="En retard" name="retard" domain="[('state', '=', 'retard')]"/>
+                <filter string="Rendus" name="rendu" domain="[('state', '=', 'rendu')]"/>
+                <group expand="0" string="Grouper par">
+                    <filter string="Membre" name="group_membre" context="{'group_by': 'membre_id'}"/>
+                    <filter string="Livre" name="group_livre" context="{'group_by': 'livre_id'}"/>
+                    <filter string="État" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="biblio_emprunt_action" model="ir.actions.act_window">
+        <field name="name">Emprunts</field>
+        <field name="res_model">biblio.emprunt</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Enregistrez votre premier emprunt</p>
+        </field>
+    </record>
+
+</odoo>

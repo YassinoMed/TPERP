@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="biblio_genre_view_list" model="ir.ui.view">
+        <field name="name">biblio.genre.list</field>
+        <field name="model">biblio.genre</field>
+        <field name="arch" type="xml">
+            <list string="Genres" editable="bottom">
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="biblio_genre_view_form" model="ir.ui.view">
+        <field name="name">biblio.genre.form</field>
+        <field name="model">biblio.genre</field>
+        <field name="arch" type="xml">
+            <form string="Genre">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="Nom du genre"/></h1>
+                    </div>
+                    <group>
+                        <field name="description" placeholder="Description du genre..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblio_genre_view_search" model="ir.ui.view">
+        <field name="name">biblio.genre.search</field>
+        <field name="model">biblio.genre</field>
+        <field name="arch" type="xml">
+            <search string="Rechercher un genre">
+                <field name="name"/>
+                <field name="description"/>
+                <filter string="Avec description" name="with_description"
+                        domain="[('description', '!=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="biblio_genre_action" model="ir.actions.act_window">
+        <field name="name">Genres</field>
+        <field name="res_model">biblio.genre</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Ajoutez votre premier genre</p>
+        </field>
+    </record>
+
+</odoo>

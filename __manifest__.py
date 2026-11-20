@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+{
+    'name': "Gestion de Bibliothèque",
+    'summary': "Gestion du catalogue et des emprunts d'une bibliothèque",
+    'author': "Yassino",
+    'category': 'Services',
+    'version': '18.0.2.0.0',
+    'depends': ['base', 'contacts', 'web'],
+    'data': [
+        'security/biblio_security.xml',
+        'security/ir.model.access.csv',
+        'data/ir_sequence.xml',
+        'data/ir_cron.xml',
+        'views/biblio_livre_views.xml',
+        'views/biblio_auteur_views.xml',
+        'views/biblio_genre_views.xml',
+        'wizard/biblio_retour_wizard_views.xml',
+        'report/biblio_emprunt_report.xml',
+        'views/biblio_emprunt_views.xml',
+        'views/res_partner_views.xml',
+        'views/biblio_menus.xml',
+    ],
+    'application': True,
+    'installable': True,
+    'license': 'LGPL-3',
+}

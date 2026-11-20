@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="biblio_retour_wizard_view_form" model="ir.ui.view">
+        <field name="name">biblio.retour.wizard.form</field>
+        <field name="model">biblio.retour.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Retour de livre">
+                <group>
+                    <field name="emprunt_id"/>
+                    <field name="date_retour"/>
+                </group>
+                <footer>
+                    <button name="action_confirm_retour"
+                            string="Confirmer le retour"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Annuler" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="biblio_retour_wizard_action" model="ir.actions.act_window">
+        <field name="name">Retour de livre</field>
+        <field name="res_model">biblio.retour.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_biblio_emprunt"/>
+        <field name="binding_type">action</field>
+    </record>
+
+</odoo>

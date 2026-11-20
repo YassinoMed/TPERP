@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_biblio_livre_lecteur,biblio.livre lecteur,model_biblio_livre,group_biblio_lecteur,1,0,0,0
+access_biblio_livre_biblio,biblio.livre bibliothecaire,model_biblio_livre,group_biblio_bibliothecaire,1,1,1,1
+access_biblio_auteur_lecteur,biblio.auteur lecteur,model_biblio_auteur,group_biblio_lecteur,1,0,0,0
+access_biblio_auteur_biblio,biblio.auteur bibliothecaire,model_biblio_auteur,group_biblio_bibliothecaire,1,1,1,1
+access_biblio_genre_lecteur,biblio.genre lecteur,model_biblio_genre,group_biblio_lecteur,1,0,0,0
+access_biblio_genre_biblio,biblio.genre bibliothecaire,model_biblio_genre,group_biblio_bibliothecaire,1,1,1,1
+access_biblio_emprunt_lecteur,biblio.emprunt lecteur,model_biblio_emprunt,group_biblio_lecteur,1,0,0,0
+access_biblio_emprunt_biblio,biblio.emprunt bibliothecaire,model_biblio_emprunt,group_biblio_bibliothecaire,1,1,1,1
+access_biblio_retour_wizard_lecteur,biblio.retour.wizard lecteur,model_biblio_retour_wizard,group_biblio_lecteur,0,0,0,0
+access_biblio_retour_wizard_biblio,biblio.retour.wizard bibliothecaire,model_biblio_retour_wizard,group_biblio_bibliothecaire,1,1,1,1

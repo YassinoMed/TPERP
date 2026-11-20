@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_report_emprunt" model="ir.actions.report">
+        <field name="name">Reçu d'emprunt</field>
+        <field name="model">biblio.emprunt</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">biblio_gestion.report_emprunt</field>
+        <field name="report_file">biblio_gestion.report_emprunt</field>
+        <field name="binding_model_id" ref="model_biblio_emprunt"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Reçu d'emprunt - %s' % (object.reference)</field>
+    </record>
+
+    <template id="report_minimal_layout">
+        <html>
+            <head>
+                <meta charset="utf-8"/>
+                <style type="text/css">
+                    body {
+                        margin: 0;
+                        padding: 0;
+                    }
+                </style>
+            </head>
+            <body>
+                <t t-out="body"/>
+            </body>
+        </html>
+    </template>
+
+    <template id="report_emprunt">
+        <html lang="fr">
+            <head>
+                <meta charset="utf-8"/>
+                <title>Reçu d'emprunt</title>
+            </head>
+            <body>
+                <main>
+                    <t t-foreach="docs" t-as="doc">
+                        <article class="article"
+                                 t-att-data-oe-model="doc._name"
+                                 t-att-data-oe-id="doc.id">
+                            <style type="text/css">
+                                @page {
+                                    size: A4;
+                                    margin: 18mm;
+                                }
+                                body {
+                                    color: #243447;
+                                    font-family: "DejaVu Sans", Arial, sans-serif;
+                                    font-size: 11pt;
+                                    margin: 0;
+                                }
+                                h1 {
+                                    color: #163a5f;
+                                    font-size: 22pt;
+                                    margin: 0 0 6mm;
+                                    text-align: center;
+                                }
+                                .subtitle {
+                                    color: #627d98;
+                                    margin: 0 0 10mm;
+                                    text-align: center;
+                                }
+                                table {
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+                                td {
+                                    border-bottom: 1px solid #d9e2ec;
+                                    padding: 4mm 3mm;
+                                    vertical-align: top;
+                                }
+                                td.label {
+                                    color: #486581;
+                                    width: 34%;
+                                }
+                                .reference {
+                                    font-size: 15pt;
+                                    font-weight: bold;
+                                }
+                                .notice {
+                                    background: #f0f4f8;
+                                    border-left: 4px solid #163a5f;
+                                    margin-top: 10mm;
+                                    padding: 4mm;
+                                }
+                                .signature {
+                                    margin-top: 18mm;
+                                    text-align: right;
+                                }
+                                article {
+                                    page-break-after: always;
+                                }
+                                article:last-child {
+                                    page-break-after: auto;
+                                }
+                            </style>
+                            <h1>Reçu d'emprunt</h1>
+                            <p class="subtitle">Bibliothèque — Accusé de prêt</p>
+                            <table>
+                                <tr>
+                                    <td class="label">Référence</td>
+                                    <td class="reference"><span t-field="doc.reference"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Membre</td>
+                                    <td><span t-field="doc.membre_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Livre</td>
+                                    <td><span t-field="doc.livre_id"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Date d'emprunt</td>
+                                    <td><span t-field="doc.date_debut" t-options="{'widget': 'date'}"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Retour prévu</td>
+                                    <td><span t-field="doc.date_retour_prevue" t-options="{'widget': 'date'}"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Retour effectif</td>
+                                    <td><span t-field="doc.date_retour" t-options="{'widget': 'date'}"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Durée (jours)</td>
+                                    <td><span t-field="doc.duree"/></td>
+                                </tr>
+                            </table>
+                            <div class="notice">
+                                Merci de retourner le livre à la date prévue.
+                            </div>
+                            <div class="signature">
+                                Signature de l'emprunteur
+                                <div style="margin-top: 14mm; border-bottom: 1px solid #243447; width: 55mm; margin-left: auto;">
+                                    <span/>
+                                </div>
+                            </div>
+                        </article>
+                    </t>
+                </main>
+            </body>
+        </html>
+    </template>
+
+</odoo>
